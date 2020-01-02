@@ -43,7 +43,7 @@ class PostController extends AbstractController
         $em->flush();
 
         // return a response
-        return new Response('Post was created');
+        return $this->redirect($this->generateUrl('post.index'));
     }
 
     /**
@@ -55,5 +55,20 @@ class PostController extends AbstractController
         return $this->render('post/show.html.twig', [
             'post' => $post
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function remove(Post $post)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($post);
+        $em->flush();
+
+        $this->addFlash('success', 'Post was removed');
+
+        return $this->redirect($this->generateUrl('post.index'));
     }
 }

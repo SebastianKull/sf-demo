@@ -2,6 +2,12 @@
 
 {% block body %}
 
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
     <h1>List of all posts</h1>
 
     <table class="table table-striped">
@@ -9,7 +15,7 @@
             <tr>
                 <td>ID</td>
                 <td>Title</td>
-                <td>Options</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +28,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('post.show', {id: post.id}) }}" class="btn btn-primary">Show</a>
+                    <a href="{{ path('post.delete', {id: post.id}) }}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         {% endfor %}
